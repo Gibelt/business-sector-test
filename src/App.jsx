@@ -14,6 +14,7 @@ function App() {
   const [sortOrder, setSortOrder] = useState('ascending')
   const [searchParams, setSearchParams] = useSearchParams()
   const [searchFilter, setSearchFilter] = useState('')
+  const [chevron, setChevron] = useState('down')
 
   const handleSort = (key) => {
     const sortedData = Array.from(posts).sort((a, b) => {
@@ -25,6 +26,7 @@ function App() {
 
     setPosts(sortedData)
     setSortOrder(sortOrder === 'ascending' ? 'descending' : 'ascending')
+    setChevron(sortOrder === 'ascending' ? 'down' : 'up')
   }
 
   const handelPageClick = (number) => {
@@ -73,11 +75,12 @@ function App() {
   })
 
   return (
-    <div className="container">
+    <div className="container p-3">
       <Search setSearchFilter={setSearchFilter} />
       <PostTable
         posts={data.slice(indexOdFirstPost, indexOfLastPost)}
         handleSort={handleSort}
+        chevron={chevron}
       />
       {data.length > 0 && (
         <PaginationComponent
